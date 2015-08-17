@@ -1,6 +1,6 @@
 #Euro Truck Simulator 2 Telemetry Python Client Fork
 
-Please look at https://github.com/jurkov/ets2-sdk-plugin/ets2-client/python for more information about the python client.
+Please look at https://github.com/jurkov/ets2-sdk-plugin/tree/master/ets2-client/python for more information about the python client.
 
 #Euro Truck Simulator 2 Telemetry
 
