@@ -234,7 +234,3 @@ class ets2sdkclient:
         # {'kids': 0, 'name': 'Dog', 'color': 'Spotted', 'age': 10, 'legs': 2, 'smell': 'Alot'}
         # now dump this in some way or another
         print ', \n'.join("%s: %s" % item for item in attrs.items())
-
-e = ets2sdkclient()
-e.update()
-e.printall()
