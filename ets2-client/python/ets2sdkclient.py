@@ -1,7 +1,43 @@
 import mmap
 import struct
 
+class Ets2SdkBoolean():
+    CruiseControl = 0
+    Wipers = 1
+    ParkBrake = 2
+    MotorBrake = 3 
+    ElectricEnabled = 4
+    EngineEnabled = 5 
+
+    BlinkerLeftActive = 6
+    BlinkerRightActive = 7
+    BlinkerLeftOn = 8
+    BlinkerRightOn = 9
+
+    LightsParking = 10
+    LightsBeamLow = 11
+    LightsBeamHigh = 12
+    LightsAuxFront = 13
+    LightsAuxRoof = 14
+    LightsBeacon = 15
+    LightsBrake = 16 
+    LightsReverse = 17
+
+    BatteryVoltageWarning = 18
+    AirPressureWarning = 19
+    AirPressureEmergency = 20
+    AdblueWarning = 21
+    OilPressureWarning = 22
+    WaterTemperatureWarning = 23
+    TrailerAttached = 24
+        
 class ets2sdkclient:
+    def GetBool(self, i):
+        if (i == Ets2SdkBoolean.TrailerAttached):
+            return int(self.flags[1].encode('hex'), 16) > 0
+        else:
+            return int(self.aux[i].encode('hex'), 16) > 0
+            
     def update(self):
         self.mm = mmap.mmap(0, 1024, "Local\\SimTelemetryETS2")
         
@@ -226,6 +262,36 @@ class ets2sdkclient:
 
         #[FieldOffset(1016)]
         self.gearDashboard  = struct.unpack("I", self.mm[1016:1020])[0]
+        
+        # variables mapping from Ets2SdkClient 1.4.0
+        self.CruiseControl = self.GetBool(Ets2SdkBoolean.CruiseControl)
+        self.Wipers = self.GetBool(Ets2SdkBoolean.Wipers)
+        self.ParkBrake = self.GetBool(Ets2SdkBoolean.ParkBrake)
+        self.MotorBrake = self.GetBool(Ets2SdkBoolean.MotorBrake)
+        self.ElectricEnabled = self.GetBool(Ets2SdkBoolean.ElectricEnabled)
+        self.EngineEnabled = self.GetBool(Ets2SdkBoolean.EngineEnabled)
+
+        self.BlinkerLeftActive = self.GetBool(Ets2SdkBoolean.BlinkerLeftActive)
+        self.BlinkerRightActive = self.GetBool(Ets2SdkBoolean.BlinkerRightActive)
+        self.BlinkerLeftOn = self.GetBool(Ets2SdkBoolean.BlinkerLeftOn)
+        self.BlinkerRightOn = self.GetBool(Ets2SdkBoolean.BlinkerRightOn)
+
+        self.LightsParking = self.GetBool(Ets2SdkBoolean.LightsParking)
+        self.LightsBeamLow = self.GetBool(Ets2SdkBoolean.LightsBeamLow)
+        self.LightsBeamHigh = self.GetBool(Ets2SdkBoolean.LightsBeamHigh)
+        self.LightsAuxFront = self.GetBool(Ets2SdkBoolean.LightsAuxFront)
+        self.LightsAuxRoof = self.GetBool(Ets2SdkBoolean.LightsAuxRoof)
+        self.LightsBeacon = self.GetBool(Ets2SdkBoolean.LightsBeacon)
+        self.LightsBrake = self.GetBool(Ets2SdkBoolean.LightsBrake)
+        self.LightsReverse = self.GetBool(Ets2SdkBoolean.LightsReverse)
+
+        self.BatteryVoltageWarning = self.GetBool(Ets2SdkBoolean.BatteryVoltageWarning)
+        self.AirPressureWarning = self.GetBool(Ets2SdkBoolean.AirPressureWarning)
+        self.AirPressureEmergency = self.GetBool(Ets2SdkBoolean.AirPressureEmergency)
+        self.AdblueWarning = self.GetBool(Ets2SdkBoolean.AdblueWarning)
+        self.OilPressureWarning = self.GetBool(Ets2SdkBoolean.OilPressureWarning)
+        self.WaterTemperatureWarning = self.GetBool(Ets2SdkBoolean.WaterTemperatureWarning)
+        self.TrailerAttached = self.GetBool(Ets2SdkBoolean.TrailerAttached)
         
         self.mm.close()
         
